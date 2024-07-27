@@ -27,7 +27,7 @@ while True:
         print(f"The chosen operator for this process is {value} ({operator})")
         break
     else:
-        print("You have chosen an invalid operator.")
+        print(f"{operator} is now a valid operator.")
         exit()
 #Prints alphabetical value as well as the symbol operator.
 #Asks user for numbers to use.
