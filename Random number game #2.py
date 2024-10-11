@@ -9,6 +9,7 @@ while playAgain.lower() == "yes" or playAgain.lower() == "y":
     numList = [num1, num2, num3, num4]
     emptyNumList = ["a", "b", "c", "d"]
     print("Please guess the numbers and place of the 4 digit number")
+    print(emptyNumList)
     num = int(input("What number would you like to guess?: "))
     place = input("What position would you like to put the number in?: ")
     while "a" in emptyNumList or "b" in emptyNumList or "c" in emptyNumList or "d" in emptyNumList:
