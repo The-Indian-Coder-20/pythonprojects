@@ -5,11 +5,11 @@ score1, score2 = 0, 0
 i = 1
 die1, die2 = 0, 0
 while i <= maxCount:
-    while die1 == die2:
-        die1, die2 = random.randint(1,6), random.randint(1,6)
     die1, die2 = random.randint(1,6), random.randint(1,6)
+
     score1 += die1
     score2 += die2
+    
     if die1 == 6 and die2 == 6:
         die1, die2 = random.randint(1,6), random.randint(1,6)
         score1 += die1
