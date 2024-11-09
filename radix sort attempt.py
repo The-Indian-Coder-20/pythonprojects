@@ -1,8 +1,8 @@
 def radixSort(numList):
-    numSortList, finalList, x = [], [], 0
+    numSortList, finalList, x = [], [], 1
     while x <= len(str(max(numList))):
         numSortList.append([])
-    numSortList.append(len(str(max(numList)))*"[]")
+        x += 1
     print(numSortList)
     for i in range(len(numList)):
         print("yes")
