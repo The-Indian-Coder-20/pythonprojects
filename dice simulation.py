@@ -3,7 +3,7 @@ import pandas as pd
 
 finalList, startingDiceNum, tempList = [], 50, []
 numberOfLists = int(input("How many data trials/sets would you like?: "))
-for i in range(numberOfLists):
+for i in range(numberOfLists + 1):
     finalList.append([])
 
 for j in range(len(finalList)):
@@ -22,6 +22,19 @@ for i in range(len(finalList)):
         print(finalList[i])
         for num in range(lenLists[0]-len(finalList[i])):
             finalList[i].append(0)
+tempList2 = []
+while len(avgList) <= 50:
+    tempTempList = tempList2
+    while len(tempTempList) <= 3:
+        for i in range(len(finalList)):
+            key = True
+            for num in finalList[i]:
+                if key:
+                    tempTempList.append(num)
+                    key = False
+    print(tempTempList)
+    avgList.append(sum(tempTempList)/(len(tempTempList) - 1))
+print(avgList)
 # Excel File Writing with pandas
 #df = pd.DataFrame(finalList).transpose()  # Make rows columns (transpose allows Excel vertical compatibility)
 #df.to_excel("dicesimulation.xlsx", index=False, header=[f'Trial {i+1}' for i in range(numberOfLists)], engine='xlsxwriter')
