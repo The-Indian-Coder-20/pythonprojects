@@ -3,8 +3,9 @@ import pandas as pd
 
 finalList, startingDiceNum, tempList = [], 50, []
 numberOfLists = int(input("How many data trials/sets would you like?: "))
-for i in range(numberOfLists + 1):
+for i in range(numberOfLists):
     finalList.append([])
+
 
 for j in range(len(finalList)):
     currentDiceNum = startingDiceNum
@@ -14,29 +15,36 @@ for j in range(len(finalList)):
         finalList[j].append(currentDiceNum - tempList.count(1))
         currentDiceNum -= tempList.count(1)
         tempList.clear()
+
+
 avgList, lenLists = [], []
+
+
 for list in finalList:
     lenLists.append(len(list))
+lenLists.sort()
 for i in range(len(finalList)):
-    if len(finalList[i]) != lenLists[0]:
-        print(finalList[i])
-        for num in range(lenLists[0]-len(finalList[i])):
-            finalList[i].append(0)
-tempList2 = []
-while len(avgList) <= 50:
-    tempTempList = tempList2
-    while len(tempTempList) <= 3:
+    for num in range(lenLists[-1]-len(finalList[i])):
+        finalList[i].append(0)
+
+df_finalList = pd.DataFrame(finalList).transpose()
+
+while len(finalList[0]) != 0:
+    tempList2 = []
+    for j in range(3):
         for i in range(len(finalList)):
-            key = True
-            for num in finalList[i]:
-                if key:
-                    tempTempList.append(num)
-                    key = False
-    print(tempTempList)
-    avgList.append(sum(tempTempList)/(len(tempTempList) - 1))
+            while finalList[i] and len(tempList2) < 3:
+                    tempList2.append(finalList[i].pop(0))
+                    break
+            if len(tempList2) >= 3:
+                break
+    avgList.append(round(sum(tempList2) / len(tempList2), 2))
 print(avgList)
-# Excel File Writing with pandas
-#df = pd.DataFrame(finalList).transpose()  # Make rows columns (transpose allows Excel vertical compatibility)
-#df.to_excel("dicesimulation.xlsx", index=False, header=[f'Trial {i+1}' for i in range(numberOfLists)], engine='xlsxwriter')
+
+df_finalList['Averages'] = avgList
+
+with pd.ExcelWriter("dicesimulation.xlsx", engine="xlsxwriter") as writer:
+    df_finalList.to_excel(writer, index=False, header=[f'Trial {i+1}' for i in range(numberOfLists)] + ['Averages'], sheet_name='Simulation Data')
 
 print(f"Simulation results saved in 'dicesimulation.xlsx'")
+
