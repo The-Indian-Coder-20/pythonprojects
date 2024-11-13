@@ -1,5 +1,6 @@
 import random
 import pandas as pd
+from xlsxwriter import Workbook
 
 finalList, startingDiceNum, tempList = [], 50, []
 numberOfLists = int(input("How many data trials/sets would you like?: "))
@@ -39,12 +40,19 @@ while len(finalList[0]) != 0:
             if len(tempList2) >= 3:
                 break
     avgList.append(round(sum(tempList2) / len(tempList2), 2))
+
+timeList = []
+for i in range(len(avgList)):
+    timeList.append(i)
+
 print(avgList)
+print(timeList)
+ # Time elapsed is based on the max length of the trials
+df_finalList['Nuclei Remaining'] = avgList
+df_finalList['Time Elapsed'] = timeList
 
-df_finalList['Averages'] = avgList
-
+# Save the results to an Excel file
 with pd.ExcelWriter("dicesimulation.xlsx", engine="xlsxwriter") as writer:
-    df_finalList.to_excel(writer, index=False, header=[f'Trial {i+1}' for i in range(numberOfLists)] + ['Averages'], sheet_name='Simulation Data')
+    df_finalList.to_excel(writer, index=False, header=[f'Trial {i+1}' for i in range(numberOfLists)] + ['Nuclei Remaining'] + ['Time Elapsed'], sheet_name='Simulation Data')
 
 print(f"Simulation results saved in 'dicesimulation.xlsx'")
-
