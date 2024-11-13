@@ -1,7 +1,6 @@
 import random
 import pandas as pd
 
-# Simulation Data Setup
 finalList, startingDiceNum, tempList = [], 50, []
 numberOfLists = int(input("How many data trials/sets would you like?: "))
 for i in range(numberOfLists):
